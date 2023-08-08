@@ -56,8 +56,8 @@ const Conversation = () => {
                 <ReactMarkdown
                 className="flex flex-col"
                 >
-                {message.content}
-                
+                {message.content || ""}
+                {}
                 </ReactMarkdown>             
             </div>
             ))}
