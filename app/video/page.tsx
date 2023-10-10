@@ -4,31 +4,34 @@ import Input from '@/Components/UI/Input'
 import React, { useEffect, useState } from 'react'
 import {FaStarAndCrescent,FaRegUser,FaHourglassStart} from "react-icons/fa";
 import axios from 'axios';
-import Image from 'next/image';
-const VideoGeneration = () => {
-    const [propmt,setPrompt]=useState<string>('');
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import Link from 'next/link';
+import { BiArrowBack } from 'react-icons/bi';
+const TextGeneration = () => {
+    const [propmt,setPrompt]=useState('How do i calculate the radious of circle ?');
+    const [messages,setMessages]=useState([]);
     const [isLoading,setIsLoading]=useState(false);
-    const [images,setImages]=useState<string[]>([]);
     
     
     const handleGenerate=async()=>{
         setIsLoading(true);
-       
 
-        const response = await axios.post("/api/image",{prompt:propmt,amount:10,resolution:"512x512"})
+        const response = await axios.post("/api/text",{prompt:propmt})
         if(response){
-        const urls = response.data.map((image:{url:string})=>image.url);
-        setImages(urls);
+        console.log(response);
         setIsLoading(false);
         }
     }
   return (
     <div className="mt-14   flex flex-1 flex-col gap-5 items-center">
-        <h1 className="font-extrabold text-clip text-[32px]">VideoGeneration</h1>
-        <p>Our Most advanced VideoGeneration Model</p>
+        <Link href="/" className='fixed md:hidden top-5 left-5'>
+        <BiArrowBack  size={40} />
+        </Link>
+        <h1 className="font-extrabold text-clip text-[32px]">TextGeneration</h1>
+        <p>Our Most advanced TextGeneration Model</p>
         <div className='flex  flex-col gap-5 xl:flex-row  w-[90%]'>
         <Input
-        placeholder="Start VideoGeneration"
+        placeholder="Start TextGeneration"
         type='text'
         handleChange={(e)=>setPrompt(e.target.value)}
         />
@@ -41,16 +44,24 @@ const VideoGeneration = () => {
             <FaHourglassStart size={25} color="blue" className="animate-spin" />
             <p>AI is Thinking</p>
             </div>:
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 mt-8 mx-10 mb-10">
-            {
-                images.map((src)=>(
-                    <Image alt="Image" src={src} height={512} width={512} />
-                ))
-            }
+        <div className="flex flex-col-reverse gap-5  mx-20 mb-10">
+            { messages.map((message)=>(<div 
+            key={message.content}
+            className={`flex flex-row items-start gap-10 rounded-lg text-sm  text-black bg-slate-200 px-5 py-5 ${message.role === "user" ? "bg-white border border-black/10":"bg-muted" }`}
+            >
+                {message.role === "user"?<FaRegUser color="green" size={25} />:<FaStarAndCrescent size={25} color="blue" />}
+                <ReactMarkdown
+                className="flex flex-col prose break-words prose-p:leading-relaxed"
+                >
+                {message.content || ""}
+                {}
+                </ReactMarkdown>             
+            </div>
+            ))}
         </div>
 }
     </div>
   )
 }
 
-export default VideoGeneration
+export default TextGeneration

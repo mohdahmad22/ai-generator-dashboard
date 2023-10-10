@@ -3,9 +3,11 @@ import Button from '@/Components/UI/Button'
 import Input from '@/Components/UI/Input'
 import React, { useEffect, useState } from 'react'
 import {FaStarAndCrescent,FaRegUser,FaHourglassStart} from "react-icons/fa";
+import { BiArrowBack } from "react-icons/bi";
 import {ChatCompletionRequestMessage} from "openai";
 import axios from 'axios';
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
+import Link from 'next/link';
 const Conversation = () => {
     const [propmt,setPrompt]=useState('How do i calculate the radious of circle ?');
     const [messages,setMessages]=useState<ChatCompletionRequestMessage[]>([]);
@@ -24,12 +26,16 @@ const Conversation = () => {
             messages:newMessages
         })
         if(response){
+            console.log(response);
         setMessages((current)=>[...current,userMessage,response.data])
         setIsLoading(false);
         }
     }
   return (
     <div className="mt-14   flex flex-1 flex-col gap-5 items-center">
+        <Link href="/" className='fixed md:hidden top-5 left-5'>
+        <BiArrowBack  size={40} />
+        </Link>
         <h1 className="font-extrabold text-clip text-[32px]">Conversation</h1>
         <p>Our Most advanced Conversation Model</p>
         <div className='flex  flex-col gap-5 xl:flex-row  w-[90%]'>
@@ -54,7 +60,7 @@ const Conversation = () => {
             >
                 {message.role === "user"?<FaRegUser color="green" size={25} />:<FaStarAndCrescent size={25} color="blue" />}
                 <ReactMarkdown
-                className="flex flex-col"
+                className="flex flex-col prose break-words prose-p:leading-relaxed"
                 >
                 {message.content || ""}
                 {}
