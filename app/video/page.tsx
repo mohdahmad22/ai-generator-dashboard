@@ -1,15 +1,12 @@
 "use client"
 import Button from '@/Components/UI/Button'
 import Input from '@/Components/UI/Input'
-import React, { useEffect, useState } from 'react'
-import {FaStarAndCrescent,FaRegUser,FaHourglassStart} from "react-icons/fa";
+import React, { useState } from 'react'
 import axios from 'axios';
-import { ReactMarkdown } from 'react-markdown/lib/react-markdown';
 import Link from 'next/link';
 import { BiArrowBack } from 'react-icons/bi';
 const TextGeneration = () => {
     const [propmt,setPrompt]=useState('How do i calculate the radious of circle ?');
-    const [messages,setMessages]=useState([]);
     const [isLoading,setIsLoading]=useState(false);
     
     
@@ -39,29 +36,10 @@ const TextGeneration = () => {
             label='Generate'
             handleClick={handleGenerate}
         />
-        </div>
-        {isLoading ? <div>
-            <FaHourglassStart size={25} color="blue" className="animate-spin" />
-            <p>AI is Thinking</p>
-            </div>:
-        <div className="flex flex-col-reverse gap-5  mx-20 mb-10">
-            { messages.map((message)=>(<div 
-            key={message.content}
-            className={`flex flex-row items-start gap-10 rounded-lg text-sm  text-black bg-slate-200 px-5 py-5 ${message.role === "user" ? "bg-white border border-black/10":"bg-muted" }`}
-            >
-                {message.role === "user"?<FaRegUser color="green" size={25} />:<FaStarAndCrescent size={25} color="blue" />}
-                <ReactMarkdown
-                className="flex flex-col prose break-words prose-p:leading-relaxed"
-                >
-                {message.content || ""}
-                {}
-                </ReactMarkdown>             
-            </div>
-            ))}
-        </div>
-}
+ 
     </div>
-  )
+    </div>
+)
 }
-
 export default TextGeneration
+
