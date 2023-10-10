@@ -2,7 +2,7 @@ import {LuMessageSquare,LuVideo,LuMusic,LuImage,LuCode} from "react-icons/lu"
 import {MdOutlineDashboard} from "react-icons/md"
 const SideBarConst = [{name:"DashBoard",icon:<MdOutlineDashboard size={20} color="blue"  />,url:"/"},
 {name:"Conversation",icon:<LuMessageSquare size={20} color="violet"  />,url:"/conversation"},
-{name:"Video Generation",icon:<LuVideo size={20} color="green"  />,url:"/video"},
+{name:"Text Generation",icon:<LuMessageSquare size={20} color="green"  />,url:"/video"},
 {name:"Music Generation",icon:<LuMusic size={20} color="red"  />,url:"/music"},
 {name:"Image Generation",icon:<LuImage size={20} color="blue"  />,url:"/image"},
 {name:"Code Generation",icon:<LuCode size={20} color="green"  />,url:"/code"},

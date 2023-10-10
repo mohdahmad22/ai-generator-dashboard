@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react'
 import {FaStarAndCrescent,FaRegUser,FaHourglassStart} from "react-icons/fa";
 import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
+import { BiArrowBack } from 'react-icons/bi';
 const MusicGeneration = () => {
     const [propmt,setPrompt]=useState<string>('');
     const [isLoading,setIsLoading]=useState(false);
@@ -24,6 +26,9 @@ const MusicGeneration = () => {
     }
   return (
     <div className="mt-14   flex flex-1 flex-col gap-5 items-center">
+        <Link href="/" className='fixed md:hidden top-5 left-5'>
+        <BiArrowBack  size={40} />
+        </Link>
         <h1 className="font-extrabold text-clip text-[32px]">MusicGeneration</h1>
         <p>Our Most advanced MusicGeneration Model</p>
         <div className='flex  flex-col gap-5 xl:flex-row  w-[90%]'>
